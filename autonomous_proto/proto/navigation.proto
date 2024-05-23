@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+import "message_info.proto";
+
+message Navigation {
+  message Position {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue lat = 2;
+    google.protobuf.DoubleValue lon = 3;
+    google.protobuf.DoubleValue alt = 4;
+  }
+  message Orientation {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue roll = 2;
+    google.protobuf.DoubleValue pitch = 3;
+    google.protobuf.DoubleValue yaw = 4;
+  }
+  message Velocity {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue e = 2;
+    google.protobuf.DoubleValue n = 3;
+    google.protobuf.DoubleValue u = 4;
+    google.protobuf.DoubleValue x = 5;
+    google.protobuf.DoubleValue y = 6;
+    google.protobuf.DoubleValue z = 7;
+  }
+  message AngularVelocity {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue e = 2;
+    google.protobuf.DoubleValue n = 3;
+    google.protobuf.DoubleValue u = 4;
+    google.protobuf.DoubleValue x = 5;
+    google.protobuf.DoubleValue y = 6;
+    google.protobuf.DoubleValue z = 7;
+  }
+  message Acceleration {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue e = 2;
+    google.protobuf.DoubleValue n = 3;
+    google.protobuf.DoubleValue u = 4;
+    google.protobuf.DoubleValue x = 5;
+    google.protobuf.DoubleValue y = 6;
+    google.protobuf.DoubleValue z = 7;
+  }
+  message AngularAcceleration {
+    MessageInfo header = 1;
+    google.protobuf.DoubleValue e = 2;
+    google.protobuf.DoubleValue n = 3;
+    google.protobuf.DoubleValue u = 4;
+    google.protobuf.DoubleValue x = 5;
+    google.protobuf.DoubleValue y = 6;
+    google.protobuf.DoubleValue z = 7;
+  }
+
+  MessageInfo header = 1;
+  Position position = 2;
+  Orientation orientation = 3;
+  Velocity velocity = 4;
+  AngularVelocity angular_velocity = 5;
+  Acceleration acceleration = 6;
+  AngularAcceleration angular_acceleration = 7;
+}

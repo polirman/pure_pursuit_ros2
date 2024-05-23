@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+import "message_info.proto";
+
+message Control {
+  message Mode {
+    enum Value {
+      unknown = 0;
+      autonomous = 1;
+      standby = 2;
+    }
+  }
+  message Direction {
+    enum Value {
+      unknown = 0;
+      forward = 1;
+      backward = -1;
+      neutral = 1024;
+    }
+  }
+  message Priority {
+    google.protobuf.Int32Value mode = 1;
+    google.protobuf.Int32Value direction = 2;
+    google.protobuf.Int32Value k = 3;
+    google.protobuf.Int32Value kv = 4;
+    google.protobuf.Int32Value v = 5;
+    google.protobuf.Int32Value acc = 6;
+    google.protobuf.Int32Value throttle = 7;
+    google.protobuf.Int32Value brake = 8;
+  }
+
+  MessageInfo header = 1;
+  Mode.Value mode = 2;
+  repeated Direction.Value direction = 3;
+  repeated double k = 4;
+  repeated double kv = 5;
+  repeated double v = 6;
+  repeated double acc = 7;
+  repeated double throttle = 8;
+  repeated double brake = 9;
+  Priority priority = 10;
+}
+
+message ControlLimits {
+  MessageInfo header = 1;
+  google.protobuf.DoubleValue v_max = 2;
+}

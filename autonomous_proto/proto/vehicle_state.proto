@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+import "message_info.proto";
+
+message VehicleState {
+  message Mode {
+    enum Enum {
+      unknown = 0;
+      autonomous = 1;
+      manual_driving = 2; // human manual driving
+      remote_controller = 3; // remote controller with human operation
+      undefined = -1;
+    }
+    Enum vehicle = 1;
+    Enum steer = 2;
+    Enum speed = 3;
+    Enum gear = 4;
+    Enum throttle = 5;
+    Enum brake = 6;
+    Enum park = 7;
+  }
+  message Gear {
+    enum Mode {
+      unknown = 0;
+      N = 1;
+      D = 2;
+      R = 3;
+      P = 4;
+      spin = 5;
+      r_spin = 6;
+      halt = 1024;
+      undefined = -1;
+    }
+    Mode mode = 1;
+    google.protobuf.Int32Value selection = 2;
+    google.protobuf.DoubleValue selection_ratio = 3;
+    google.protobuf.BoolValue shifting = 4;
+  }
+  message DriverOperation {
+    google.protobuf.DoubleValue steer = 1;
+    google.protobuf.DoubleValue steer_torque = 2;
+    google.protobuf.DoubleValue steer_speed = 3;
+    google.protobuf.DoubleValue v = 4;
+    google.protobuf.DoubleValue acc = 5;
+    google.protobuf.DoubleValue throttle = 6;
+    google.protobuf.DoubleValue brake = 7;
+    Gear gear = 8;
+    google.protobuf.DoubleValue throttle_pedal = 9;
+    google.protobuf.DoubleValue brake_pedal = 10;
+  }
+  message Engine {
+    google.protobuf.DoubleValue rpm = 1;
+    google.protobuf.DoubleValue rpm_demand = 2;
+    google.protobuf.DoubleValue torque = 3;
+    google.protobuf.DoubleValue torque_demand = 4;
+    google.protobuf.DoubleValue load = 5;
+  }
+  message Battery {
+    google.protobuf.DoubleValue voltage = 1; // V
+    google.protobuf.DoubleValue current = 2; // A
+    google.protobuf.DoubleValue power = 3; // W
+    google.protobuf.DoubleValue temperature = 4;
+    google.protobuf.DoubleValue soc = 5; // percentage 0-100
+    google.protobuf.DoubleValue remain_capacity = 6; // mAh
+  }
+
+  MessageInfo header = 1;
+  Mode mode = 2;
+  DriverOperation driver_operation = 3;
+  google.protobuf.BoolValue park = 4;
+  repeated double angle = 5;
+  repeated double angle_velocity = 6;
+  repeated double v = 7;
+  repeated double acc = 8;
+  repeated double throttle = 9;
+  repeated double brake = 10;
+  repeated string errors = 11;
+  repeated Gear gear = 12;
+  repeated Engine engine = 13;
+  repeated Battery battery = 14;
+  repeated double steer = 15;
+  repeated double steer_speed = 16;
+  repeated double steer_torque = 17;
+}

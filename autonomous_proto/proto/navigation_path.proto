@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "message_info.proto";
+import "navigation.proto";
+
+message NavigationPath {
+  MessageInfo header = 1;
+  repeated Navigation.Position position = 2;
+}

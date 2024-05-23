@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+import "message_info.proto";
+
+message Sphere {
+//  message Type {
+//    enum Enum {
+//      unknown = 0;
+//      int64 = 1;
+//      float64 = 2;
+//      int64_array = 3;
+//      float64_array = 4;
+//    }
+//  }
+  message Raw {
+    google.protobuf.StringValue name = 1;
+    google.protobuf.Int64Value int64_value = 2;
+    google.protobuf.DoubleValue float64_value = 3;
+    repeated int64 int64_array = 4;
+    repeated double float64_array = 5;
+  }
+  MessageInfo header = 1;
+  repeated Raw data = 2;
+}

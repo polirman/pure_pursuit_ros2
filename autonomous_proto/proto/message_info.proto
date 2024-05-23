@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+
+message MessageInfo {
+  message ModuleName {
+    enum Value {
+      unknown = 0;
+      msg_converter = 512;
+      communication_utilities = 1024;
+      copycat = 11000;
+      local_roadnet = 12000;
+      motion_control = 12288;
+      undefined = -1;
+      // we define the max value is 16384
+    }
+  }
+  message TopicName {
+    // the main topic name should index with the module index
+    enum Value {
+      unknown = 0;
+      vehicle_state = 1024;
+      navigation = 2048;
+      local_path = 10240;
+      copycat_path = 11000;
+      control = 12288;
+      control_limits = 12289;
+      control_sphere = 12290;
+      undefined = -1;
+    }
+  }
+  // timestamp is the time when the message is sent
+  // for example, if you use ROS, it is the time when the message is published
+  // so you should fill the timestamp just before you publish the message
+  message Source {
+    ModuleName.Value module_name = 1;
+    TopicName.Value topic_name = 2;
+    google.protobuf.Int64Value count = 3;
+    google.protobuf.Int64Value timestamp = 4;
+    // above values is just a copy of the message you received
+    // and the time_get is the time when you get the message
+    // for example, if you use ROS, it is the time when the message is received
+    // so you should fill the time_get just after you receive the message
+    google.protobuf.Int64Value time_get = 5;
+  }
+  repeated Source sources = 1;
+  ModuleName.Value module_name = 2;
+  TopicName.Value topic_name = 3;
+  google.protobuf.Int64Value count = 4;
+  google.protobuf.Int64Value timestamp = 5;
+}

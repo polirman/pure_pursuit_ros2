@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package autonomous_proto;
+
+import "google/protobuf/wrappers.proto";
+
+message CommunicationCommand {
+  message Markers {
+    google.protobuf.BoolValue ecu_send_on = 1;
+    google.protobuf.BoolValue auto_enable = 2;
+    google.protobuf.BoolValue steer_enable = 3;
+    google.protobuf.BoolValue speed_enable = 4;
+    google.protobuf.BoolValue gear_enable = 5;
+    google.protobuf.BoolValue throttle_enable = 6;
+    google.protobuf.BoolValue brake_enable = 7;
+    google.protobuf.BoolValue park_enable = 8;
+  }
+  message Command {
+    Markers markers = 1;
+  }
+  message Response {
+    Markers markers = 1;
+  }
+  Command command = 1;
+  Response response = 2;
+}
